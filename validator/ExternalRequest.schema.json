@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "required": [
+    "request_id",
+    "service",
+    "status",
+    "latency_ms"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "pattern": "^req_[0-9]{4}$"
+    },
+    "service": {
+      "enum": [
+        "BKI",
+        "SMEV"
+      ]
+    },
+    "status": {
+      "enum": [
+        "SUCCESS",
+        "TIMEOUT",
+        "ERROR"
+      ]
+    },
+    "latency_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "result": {
+      "type": "object"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

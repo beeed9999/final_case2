@@ -1,0 +1,9 @@
+тест  app        статус decision        reason             score dti    детали
+----------------------------------------------------------------------------------------------------
+T2-1  app_0001   OK     APPROVED                           90    0.21   score>=60? True, dti<=0.5? True
+T2-2  app_0006   OK     REFUSED         BKI_DELINQUENCY    35    0.22   
+T2-3  app_0004   OK     NEED_MORE_DATA  MISSING_INCOME                  
+T2-4  app_0002   OK     REFUSED         LOW_INCOME         25    0.72   
+T2-5  app_0005   OK     REFUSED         AMOUNT_LIMIT       65    0.39   
+
+Пройдено: 5/5

@@ -1,0 +1,15 @@
+{
+  "app_id": "app_0001",
+  "decision": "APPROVED",
+  "reason": "",
+  "score": 90,
+  "dti": 0.21,
+  "amount_approved": 500000,
+  "term_approved": 24,
+  "rate": 0.18,
+  "bki": {
+    "score": 720,
+    "delinquency": false
+  },
+  "smev": "MATCH"
+}

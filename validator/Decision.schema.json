@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "required": [
+    "app_id",
+    "decision",
+    "reason",
+    "score",
+    "dti"
+  ],
+  "properties": {
+    "app_id": {
+      "type": "string",
+      "pattern": "^app_[0-9]{4}$"
+    },
+    "decision": {
+      "enum": [
+        "APPROVED",
+        "REFUSED",
+        "NEED_MORE_DATA",
+        "MANUAL_REVIEW"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "dti": {
+      "type": "number",
+      "minimum": 0
+    },
+    "amount_approved": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "term_approved": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "bki": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 300,
+          "maximum": 850
+        },
+        "delinquency": {
+          "type": "boolean"
+        }
+      }
+    },
+    "smev": {
+      "enum": [
+        "MATCH",
+        "MISMATCH",
+        "TIMEOUT",
+        "NOT_CALLED"
+      ]
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

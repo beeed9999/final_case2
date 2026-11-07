@@ -1,0 +1,3 @@
+OK: decisions.csv
+    обработано: 100
+    решения:    {'APPROVED': 49, 'REFUSED': 50, 'NEED_MORE_DATA': 1}

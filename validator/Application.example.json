@@ -1,0 +1,11 @@
+{
+  "app_id": "app_0001",
+  "client_id": "cli_0001",
+  "passport_hash": "f727a849055f2224",
+  "age": 32,
+  "income": 120000,
+  "employment": "employed",
+  "family": "married",
+  "amount": 500000,
+  "term": 24
+}

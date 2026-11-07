@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "required": [
+    "app_id",
+    "age",
+    "income",
+    "employment",
+    "family",
+    "amount",
+    "term"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "app_id": {
+      "type": "string",
+      "pattern": "^app_[0-9]{4}$"
+    },
+    "client_id": {
+      "type": "string",
+      "pattern": "^cli_[0-9]{4}$"
+    },
+    "passport_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{16}$"
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 18,
+      "maximum": 70
+    },
+    "income": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "employment": {
+      "enum": [
+        "employed",
+        "self-employed",
+        "student",
+        "retired",
+        "unemployed"
+      ]
+    },
+    "family": {
+      "enum": [
+        "single",
+        "married",
+        "children"
+      ]
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 10000,
+      "maximum": 5000000
+    },
+    "term": {
+      "type": "integer",
+      "minimum": 3,
+      "maximum": 60
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
