@@ -105,7 +105,8 @@ def validate(app):
     else:
         try:
             amount = float(app["amount"])
-            if amount < 10_000 or amount > 5_000_000:
+            # формат API допускает до 5M, но продукт prod_standard — до 1M (Ограничение 2)
+            if amount < 10_000 or amount > 1_000_000:
                 errors.append(("amount", "AMOUNT_OUT_OF_RANGE"))
         except ValueError:
             errors.append(("amount", "AMOUNT_INVALID"))
@@ -120,6 +121,15 @@ def validate(app):
                 errors.append(("term", "TERM_OUT_OF_RANGE"))
         except ValueError:
             errors.append(("term", "TERM_INVALID"))
+
+    # bki_score: 300..850 (если передан)
+    bs = app.get("bki_score")
+    if bs:
+        try:
+            if not 300 <= int(bs) <= 850:
+                errors.append(("bki_score", "BKI_SCORE_INVALID"))
+        except ValueError:
+            errors.append(("bki_score", "BKI_SCORE_INVALID"))
 
     # passport_hash: 16 hex (если передан)
     ph = app.get("passport_hash")
@@ -236,7 +246,22 @@ def process(app):
         # Если поле ПУСТОЕ — ждем данные (NEED_MORE_DATA)
         # Если данные НЕВЕРНЫЕ — отказываем (REFUSED)
         missing_errors = [e for e in errors if e[1].startswith("MISSING_")]
-        
+
+        # Правила №1 и №2 стоят выше №3: отказ по возрасту/занятости важнее запроса данных
+        if missing_errors:
+            hard = None
+            try:
+                if app.get("age") and not (18 <= int(app["age"]) <= 70):
+                    hard = "AGE_OUT_OF_RANGE"
+            except ValueError:
+                pass
+            if hard is None and app.get("employment") == "unemployed":
+                hard = "INVALID_EMPLOYMENT"
+            if hard:
+                return {"app_id": app["app_id"], "decision": "REFUSED",
+                        "reason": hard, "score": "", "dti": "",
+                        "amount_approved": "", "term_approved": ""}
+
         if missing_errors:
             # Приоритет: MISSING_INCOME важнее MISSING_AGE
             priority = {"MISSING_INCOME": 0, "MISSING_AGE": 1, "MISSING_EMPLOYMENT": 2,
